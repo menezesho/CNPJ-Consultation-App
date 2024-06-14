@@ -33,7 +33,34 @@ class InfoCardComponent extends StatelessWidget {
                       size: 16,
                     ),
                     const SizedBox(width: 8),
-                    Text(company.fantasyName, style: theme.textTheme.labelSmall),
+                    Text(
+                      company.fantasyName,
+                      style: theme.textTheme.labelSmall,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          if (company.registrationStatus.isNotEmpty)
+            Column(
+              children: [
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    company.registrationStatus.toUpperCase() == 'ATIVA'
+                        ? Icon(
+                            Icons.check_circle_rounded,
+                            size: 16,
+                            color: theme.colorScheme.onPrimary,
+                          )
+                        : Icon(
+                            Icons.cancel_rounded,
+                            color: theme.colorScheme.error,
+                            size: 16,
+                          ),
+                    const SizedBox(width: 8),
+                    Text(company.registrationStatus, style: theme.textTheme.labelSmall),
                   ],
                 ),
               ],

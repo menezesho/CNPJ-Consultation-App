@@ -26,28 +26,28 @@ class AppTheme {
 
     // Text
     textTheme: const TextTheme(
-      // Subheading
+      // App Bar
       titleSmall: TextStyle(
         color: LightColorsConstants.onPrimary,
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.w600,
       ),
 
-      // Body
+      // Heading
       labelLarge: TextStyle(
         color: LightColorsConstants.onPrimary,
         fontSize: 18,
         fontWeight: FontWeight.w500,
       ),
 
-      // Body Small
+      // Title
       labelMedium: TextStyle(
         color: LightColorsConstants.onPrimary,
         fontSize: 16,
         fontWeight: FontWeight.w500,
       ),
 
-      // Body Extra-Small
+      // Subtitle
       labelSmall: TextStyle(
         color: LightColorsConstants.onPrimary,
         fontSize: 14,
@@ -63,7 +63,7 @@ class AppTheme {
 
     // Icon
     iconTheme: const IconThemeData(
-      color: LightColorsConstants.onSecondary,
+      color: LightColorsConstants.onPrimary,
       size: 28.0,
     ),
   );
@@ -85,28 +85,28 @@ class AppTheme {
 
     // Text
     textTheme: const TextTheme(
-      // Subheading
+      // App Bar
       titleSmall: TextStyle(
         color: DarkColorsConstants.onPrimary,
-        fontSize: 14,
+        fontSize: 16,
         fontWeight: FontWeight.bold,
       ),
 
-      // Body
+      // Heading
       labelLarge: TextStyle(
         color: DarkColorsConstants.onPrimary,
         fontSize: 18,
         fontWeight: FontWeight.w500,
       ),
 
-      // Body Small
+      // Title
       labelMedium: TextStyle(
         color: DarkColorsConstants.onPrimary,
         fontSize: 16,
         fontWeight: FontWeight.w500,
       ),
 
-      // Body Extra-Small
+      // Subtitle
       labelSmall: TextStyle(
         color: DarkColorsConstants.onPrimary,
         fontSize: 14,
@@ -122,7 +122,7 @@ class AppTheme {
 
     // Icon
     iconTheme: const IconThemeData(
-      color: DarkColorsConstants.onSecondary,
+      color: DarkColorsConstants.onPrimary,
       size: 28.0,
     ),
   );

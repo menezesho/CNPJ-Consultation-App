@@ -1,7 +1,9 @@
 import 'package:fipe_consultation/src/components/app_bar_component.dart';
-import 'package:fipe_consultation/src/components/text_component.dart';
+import 'package:fipe_consultation/src/components/info_text_component.dart';
 import 'package:fipe_consultation/src/controllers/theme_controller.dart';
 import 'package:fipe_consultation/src/models/company_model.dart';
+import 'package:fipe_consultation/src/tools/datetime_format_tool.dart';
+import 'package:fipe_consultation/src/tools/string_format_tool.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
@@ -13,43 +15,67 @@ class CompanyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeController = Provider.of<ThemeController>(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Observer(
           builder: (_) => AppBarComponent(
-            title: 'Consultar CNPJ',
+            title: 'Detalhes da empresa',
             themeController: themeController,
           ),
         ),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 16),
-              TextComponent(text: 'CNPJ: ${company.cnpj}'),
-              TextComponent(text: 'UF: ${company.uf}'),
-              TextComponent(text: 'CEP: ${company.cep}'),
-              TextComponent(text: 'País: ${company.country}'),
-              TextComponent(text: 'Nome do sócio: ${company.memberName}'),
-              TextComponent(text: 'Email: ${company.email}'),
-              TextComponent(text: 'Porte: ${company.size}'),
-              TextComponent(text: 'Bairro: ${company.neighborhood}'),
-              TextComponent(text: 'Número: ${company.number}'),
-              TextComponent(text: 'Cidade: ${company.city}'),
-              TextComponent(text: 'Logradouro: ${company.street}'),
-              TextComponent(text: 'Complemento: ${company.complement}'),
-              TextComponent(text: 'Razão social: ${company.socialReason}'),
-              TextComponent(text: 'Nome fantasia: ${company.fantasyName}'),
-              TextComponent(text: 'Descrição: ${company.description}'),
-              TextComponent(text: 'Data de início: ${company.initDate}'),
-              TextComponent(text: 'Status de registro: ${company.registrationStatus}'),
-            ],
-          ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            const Icon(Icons.home_work_rounded, size: 60),
+            const SizedBox(height: 46),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                company.socialReason,
+                style: theme.textTheme.labelMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 46),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                InfoTextComponent(title: 'Nome fantasia', value: company.fantasyName),
+                InfoTextComponent(title: 'CNPJ', value: StringFormat.formatCnpj(company.cnpj)),
+                InfoTextComponent(title: 'Descrição', value: company.description),
+                InfoTextComponent(
+                  title: 'E-mail',
+                  value: company.email ?? '',
+                ),
+                InfoTextComponent(title: 'Data de início', value: DatetimeFormatTool.format(company.initDate)),
+                InfoTextComponent(title: 'Status', value: company.registrationStatus),
+                InfoTextComponent(title: 'Porte', value: company.size),
+                InfoTextComponent(title: 'Nome do sócio', value: company.memberName),
+                InfoTextComponent(
+                  title: 'País',
+                  value: company.country ?? '',
+                ),
+                InfoTextComponent(
+                  title: 'Endereço',
+                  value: StringFormat.formatAddress(
+                    company.streetType,
+                    company.street,
+                    company.number,
+                    company.complement ?? '',
+                    company.neighborhood,
+                    company.city,
+                    company.uf,
+                    company.cep,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
