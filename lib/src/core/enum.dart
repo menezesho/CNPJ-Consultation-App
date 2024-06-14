@@ -1,0 +1,4 @@
+enum AnimatedSwitcherComponentTransitionType {
+  fade,
+  scale,
+}

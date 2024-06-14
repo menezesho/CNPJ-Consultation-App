@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class LoaderComponent extends StatelessWidget {
-  const LoaderComponent({super.key});
+class CircleLoaderComponent extends StatelessWidget {
+  const CircleLoaderComponent({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: LoadingAnimationWidget.fourRotatingDots(
+      child: LoadingAnimationWidget.discreteCircle(
         color: Colors.black12,
         size: 20,
       ),

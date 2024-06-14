@@ -20,9 +20,10 @@ abstract class CompanyControllerBase with Store {
     try {
       isLoading = true;
       final data = await Company.searchCnpj(cnpj: cnpj);
-      print(jsonEncode(data));
       company = CompanyModel.fromJson(jsonDecode(jsonEncode(data)));
-    }finally {
+    } catch (e) {
+      throw Exception('Não foi possível buscar o CNPJ: $e');
+    } finally {
       isLoading = false;
     }
   }
