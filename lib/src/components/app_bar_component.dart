@@ -1,9 +1,10 @@
+import 'package:fipe_consultation/src/controllers/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class AppBarComponent extends StatelessWidget {
-  const AppBarComponent({super.key, required this.title, required this.actions, this.hasLeading = true});
+  const AppBarComponent({super.key, required this.title, required this.themeController, this.hasLeading = true});
   final String title;
-  final List<Widget> actions;
+  final ThemeController themeController;
   final bool hasLeading;
 
   @override
@@ -13,7 +14,13 @@ class AppBarComponent extends StatelessWidget {
     return AppBar(
       // Conteúdo
       title: Text(title.toUpperCase(), style: theme.textTheme.titleSmall),
-      actions: actions,
+      actions: [
+        IconButton(
+          icon: Icon(themeController.isDarkTheme ? Icons.light_mode_rounded : Icons.dark_mode_rounded),
+          onPressed: () => themeController.toggleTheme(),
+        ),
+      ],
+      automaticallyImplyLeading: false,
       leading: hasLeading
           ? IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded),

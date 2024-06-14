@@ -4,6 +4,7 @@ import 'package:fipe_consultation/src/components/info_card_component.dart';
 import 'package:fipe_consultation/src/components/text_form_field_component.dart';
 import 'package:fipe_consultation/src/controllers/company_controller.dart';
 import 'package:fipe_consultation/src/controllers/theme_controller.dart';
+import 'package:fipe_consultation/src/pages/company_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -28,17 +29,12 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: AppBarComponent(
-          title: 'Consultar CNPJ',
-          hasLeading: false,
-          actions: [
-            Observer(
-              builder: (_) => IconButton(
-                icon: Icon(themeController.isDarkTheme ? Icons.light_mode_rounded : Icons.dark_mode_rounded),
-                onPressed: () => themeController.toggleTheme(),
-              ),
-            ),
-          ],
+        child: Observer(
+          builder: (_) => AppBarComponent(
+            title: 'Consultar CNPJ',
+            themeController: themeController,
+            hasLeading: false,
+          ),
         ),
       ),
       body: Center(
@@ -87,35 +83,29 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 46),
-                if (companyController.company != null) InfoCardComponent(company: companyController.company!),
+                if (companyController.company != null)
+                  InfoCardComponent(
+                    company: companyController.company!,
+                    onTap: () => Navigator.push(
+                      context,
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) => CompanyPage(company: companyController.company!),
+                        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+                          const begin = Offset(1.0, 0.0);
+                          const end = Offset.zero;
+                          const curve = Curves.ease;
 
-                // AnimatedSwitcherComponent(
-                //   child: companyController.company == null
-                //       ? const SizedBox()
-                //       : Column(
-                //           crossAxisAlignment: CrossAxisAlignment.start,
-                //           children: [
-                //             const SizedBox(height: 16),
-                //             TextComponent(text: 'CNPJ: ${companyController.company?.cnpj}'),
-                //             TextComponent(text: 'UF: ${companyController.company?.uf}'),
-                //             TextComponent(text: 'CEP: ${companyController.company?.cep}'),
-                //             TextComponent(text: 'País: ${companyController.company?.country}'),
-                //             TextComponent(text: 'Nome do sócio: ${companyController.company?.memberName}'),
-                //             TextComponent(text: 'Email: ${companyController.company?.email}'),
-                //             TextComponent(text: 'Porte: ${companyController.company?.size}'),
-                //             TextComponent(text: 'Bairro: ${companyController.company?.neighborhood}'),
-                //             TextComponent(text: 'Número: ${companyController.company?.number}'),
-                //             TextComponent(text: 'Cidade: ${companyController.company?.city}'),
-                //             TextComponent(text: 'Logradouro: ${companyController.company?.street}'),
-                //             TextComponent(text: 'Complemento: ${companyController.company?.complement}'),
-                //             TextComponent(text: 'Razão social: ${companyController.company?.socialReason}'),
-                //             TextComponent(text: 'Nome fantasia: ${companyController.company?.fantasyName}'),
-                //             TextComponent(text: 'Descrição: ${companyController.company?.description}'),
-                //             TextComponent(text: 'Data de início: ${companyController.company?.initDate}'),
-                //             TextComponent(text: 'Status de registro: ${companyController.company?.registrationStatus}'),
-                //           ],
-                //         ),
-                // ),
+                          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+                          var offsetAnimation = animation.drive(tween);
+
+                          return SlideTransition(
+                            position: offsetAnimation,
+                            child: child,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),

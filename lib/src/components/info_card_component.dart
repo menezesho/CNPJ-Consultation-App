@@ -2,8 +2,9 @@ import 'package:fipe_consultation/src/models/company_model.dart';
 import 'package:flutter/material.dart';
 
 class InfoCardComponent extends StatelessWidget {
-  const InfoCardComponent({super.key, required this.company});
+  const InfoCardComponent({super.key, required this.company, required this.onTap});
   final CompanyModel company;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class InfoCardComponent extends StatelessWidget {
             ),
         ],
       ),
-      onTap: () => print('Card tapped'),
+      onTap: onTap,
     );
   }
 }
