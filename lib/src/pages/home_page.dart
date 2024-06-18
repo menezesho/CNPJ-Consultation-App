@@ -26,6 +26,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final themeController = Provider.of<ThemeController>(context);
     final theme = Theme.of(context);
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -81,6 +82,20 @@ class _HomePageState extends State<HomePage> {
                       ],
                     ),
                   ),
+                ),
+                Observer(
+                  builder: (_) => companyController.errorMessage.isNotEmpty
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const SizedBox(height: 16),
+                            Text(
+                              companyController.errorMessage,
+                              style: theme.textTheme.labelSmall!.copyWith(color: theme.colorScheme.error),
+                            ),
+                          ],
+                        )
+                      : const SizedBox(),
                 ),
                 const SizedBox(height: 46),
                 if (companyController.company != null)

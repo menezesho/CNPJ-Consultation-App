@@ -25,6 +25,22 @@ mixin _$CompanyController on CompanyControllerBase, Store {
     });
   }
 
+  late final _$errorMessageAtom =
+      Atom(name: 'CompanyControllerBase.errorMessage', context: context);
+
+  @override
+  String get errorMessage {
+    _$errorMessageAtom.reportRead();
+    return super.errorMessage;
+  }
+
+  @override
+  set errorMessage(String value) {
+    _$errorMessageAtom.reportWrite(value, super.errorMessage, () {
+      super.errorMessage = value;
+    });
+  }
+
   late final _$companyAtom =
       Atom(name: 'CompanyControllerBase.company', context: context);
 
@@ -53,6 +69,7 @@ mixin _$CompanyController on CompanyControllerBase, Store {
   String toString() {
     return '''
 isLoading: ${isLoading},
+errorMessage: ${errorMessage},
 company: ${company}
     ''';
   }

@@ -18,7 +18,11 @@ class InfoCardComponent extends StatelessWidget {
       iconColor: theme.colorScheme.onPrimary,
       leading: const Icon(Icons.home_work_rounded),
       trailing: const Icon(Icons.arrow_forward_ios_rounded, size: 20),
-      title: Text(company.socialReason, style: theme.textTheme.labelLarge),
+      title: Text(
+        company.socialReason,
+        style: theme.textTheme.labelLarge,
+        overflow: TextOverflow.ellipsis,
+      ),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

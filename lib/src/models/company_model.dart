@@ -7,7 +7,7 @@ class CompanyModel {
   final String? email;
   final DateTime initDate;
   final String registrationStatus;
-  final String memberName;
+  final List<String> membersName;
   final String cep;
   final String streetType;
   final String street;
@@ -15,15 +15,13 @@ class CompanyModel {
   final String neighborhood;
   final String city;
   final String uf;
-  final String? country;
   final String? complement;
 
   CompanyModel({
     required this.cnpj,
     required this.uf,
     required this.cep,
-    required this.country,
-    required this.memberName,
+    required this.membersName,
     required this.email,
     required this.size,
     required this.neighborhood,
@@ -41,24 +39,23 @@ class CompanyModel {
 
   factory CompanyModel.fromJson(Map<String, dynamic> json) {
     return CompanyModel(
-      cnpj: json['cnpj'],
-      uf: json['uf'],
-      cep: json['cep'],
-      country: json['pais'],
-      memberName: json['qsa'][0]['nome_socio'],
-      email: json['email'],
-      size: json['company_size'],
-      neighborhood: json['neighborhood'],
-      number: json['phone'],
-      city: json['city'],
-      street: json['street'],
-      streetType: json['desc_street_type'],
-      complement: json['complement'],
-      socialReason: json['social_reason'] ?? '',
-      fantasyName: json['trading_name'] ?? '',
-      description: json['cnae_fiscal_desc'],
-      initDate: DateTime.parse(json['date_start_activity']),
-      registrationStatus: json['description_cadastral_situation'],
+      cnpj: json['cnpj'] ?? '',
+      uf: json['uf'] ?? '',
+      cep: json['cep'] ?? '',
+      membersName: json['qsa'] != null ? List<String>.from(json['qsa'].map((x) => x['nome_socio'])) : [],
+      email: json['email'] ?? '',
+      size: json['porte'] ?? '',
+      neighborhood: json['bairro'] ?? '',
+      number: json['numero'] ?? '',
+      city: json['municipio'] ?? '',
+      street: json['logradouro'] ?? '',
+      streetType: json['descricao_tipo_de_logradouro'] ?? '',
+      complement: json['complemento'] ?? '',
+      socialReason: json['razao_social'] ?? '',
+      fantasyName: json['nome_fantasia'] ?? '',
+      description: json['cnae_fiscal_descricao'] ?? '',
+      initDate: DateTime.parse(json['data_inicio_atividade'] ?? ''),
+      registrationStatus: json['descricao_situacao_cadastral'] ?? '',
     );
   }
 }

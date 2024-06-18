@@ -55,11 +55,7 @@ class CompanyPage extends StatelessWidget {
                 InfoTextComponent(title: 'Data de início', value: DatetimeFormatTool.format(company.initDate)),
                 InfoTextComponent(title: 'Status', value: company.registrationStatus),
                 InfoTextComponent(title: 'Porte', value: company.size),
-                InfoTextComponent(title: 'Nome do sócio', value: company.memberName),
-                InfoTextComponent(
-                  title: 'País',
-                  value: company.country ?? '',
-                ),
+                InfoTextComponent(title: 'Sócios', value: company.membersName.join('\n ')),
                 InfoTextComponent(
                   title: 'Endereço',
                   value: StringFormat.formatAddress(

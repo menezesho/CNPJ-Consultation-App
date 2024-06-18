@@ -1,7 +1,7 @@
 import 'dart:convert';
-
-import 'package:br_api/br_api.dart';
+import 'dart:io';
 import 'package:fipe_consultation/src/models/company_model.dart';
+import 'package:http/http.dart';
 import 'package:mobx/mobx.dart';
 
 part 'company_controller.g.dart';
@@ -13,16 +13,38 @@ abstract class CompanyControllerBase with Store {
   bool isLoading = false;
 
   @observable
+  String errorMessage = '';
+
+  @observable
   CompanyModel? company;
 
   @action
   Future<void> searchCnpj(String cnpj) async {
     try {
       isLoading = true;
-      final data = await Company.searchCnpj(cnpj: cnpj);
-      company = CompanyModel.fromJson(jsonDecode(jsonEncode(data)));
+      final response = await get(
+        Uri.parse('https://brasilapi.com.br/api/cnpj/v1/$cnpj'),
+        headers: {
+          HttpHeaders.contentTypeHeader: 'application/json'
+        },
+      ).timeout(const Duration(seconds: 10));
+
+      company = null;
+      errorMessage = '';
+
+      switch (response.statusCode) {
+        case 200:
+          company = CompanyModel.fromJson(jsonDecode(response.body));
+          break;
+        case 404:
+          errorMessage = 'Nenhum resultado encontrado!';
+          break;
+        default:
+          errorMessage = 'Nenhum resultado encontrado!';
+          throw Exception('Erro ao buscar o CNPJ: ${response.statusCode}');
+      }
     } catch (e) {
-      throw Exception('Não foi possível buscar o CNPJ: $e');
+      throw Exception('Erro ao buscar o CNPJ: $e');
     } finally {
       isLoading = false;
     }
