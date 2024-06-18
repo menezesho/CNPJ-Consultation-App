@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Observer(
           builder: (_) => AppBarComponent(
-            title: 'Consultar CNPJ',
+            title: 'Check CNPJ',
             themeController: themeController,
             hasLeading: false,
           ),

@@ -20,7 +20,7 @@ class AppTheme {
       secondary: LightColorsConstants.secondary,
       onSecondary: LightColorsConstants.onSecondary,
       error: LightColorsConstants.alert,
-      surface: LightColorsConstants.onPrimary,
+      surface: LightColorsConstants.surface,
       onSurface: LightColorsConstants.primary,
     ),
 
@@ -79,7 +79,7 @@ class AppTheme {
       secondary: DarkColorsConstants.secondary,
       onSecondary: DarkColorsConstants.onSecondary,
       error: DarkColorsConstants.alert,
-      surface: DarkColorsConstants.onPrimary,
+      surface: DarkColorsConstants.surface,
       onSurface: DarkColorsConstants.primary,
     ),
 

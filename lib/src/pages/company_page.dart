@@ -31,7 +31,7 @@ class CompanyPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const Icon(Icons.home_work_rounded, size: 60),
+            Icon(Icons.home_work_rounded, size: 60, color: theme.colorScheme.surface),
             const SizedBox(height: 46),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
